@@ -29,11 +29,6 @@ hpp_files = [os.path.join(root, filename)
           for root, dirnames, filenames in os.walk("./src/EternalTerminal/src")
           for filename in filenames if filename.endswith('.hpp')]
 
-#class_ty  = re.compile('^class (?P<classname>[^\s]*)(.*)$')
-class_ty  = re.compile(r'''class\s(?P<class_ty>[^\s]+)''')
-#    for m in re.finditer(r'''class\s(?P<phone>[^\s]+)''', this, re.VERBOSE):
-
-
 for headerfile in hpp_files:
     print(f"Extracting classnames from {headerfile}...")
     with open(headerfile, "r") as source:
@@ -64,7 +59,7 @@ impl Rust{cls}'''+''' {
         99
     }
 }
-'''#replace("CLASS", cls).replace("PATH", path)
+'''
     else:
         return "\n"
 
@@ -72,5 +67,3 @@ with open("src/libbindet.rs", "a+") as f:
     f.write("use cpp_inherit::*;\n")
     for inherited in CPP_INHERIT:
         f.write(template(inherited.cls, inherited.path))
-
-
